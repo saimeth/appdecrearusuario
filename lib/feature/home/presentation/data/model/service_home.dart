@@ -1,18 +1,29 @@
-import 'dart:convert';
 import 'package:app/feature/home/presentation/data/model/model_home.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+
 
 class ServiceHome {
-  Future<Info> infoFormulario() async {
-    final url = Uri.parse("http://jsonblob.com/1415707226441703424");
+  final dio = Dio();
 
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      final datos = jsonDecode(response.body);
-      return Info.fromJson(datos);
-    } else {
-      throw Exception("Error: ${response.statusCode}");
+  Future<Info> infoFormulario({
+    required String nombre,
+    required String correo,
+    required String contrasena
+  }) async {
+  
+  
+      final response = await dio.post("https://jsonblob.com/api/jsonBlob",
+        data: { "nombre": nombre,
+        "correo": correo,
+        "contrasena": contrasena,
+        },
+      );
+    
+      if (response.statusCode == 201) {
+        return Info.fromJson(response.data);
+      } else {
+        throw Exception("Error: ${response.statusCode}");
+      }
     }
   }
-}
+

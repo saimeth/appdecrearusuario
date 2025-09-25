@@ -89,7 +89,7 @@ class Vista_inicial extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {}, 
                   child: const Text("Registrarse"),
-                style: ButtonStyle(
+                  style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 132, 155, 254)),
                   foregroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 33, 33, 33)),
                 ),
