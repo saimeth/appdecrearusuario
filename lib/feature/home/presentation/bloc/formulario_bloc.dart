@@ -1,3 +1,5 @@
+import 'package:app/feature/home/presentation/data/model/model_home.dart';
+import 'package:app/feature/home/presentation/data/model/service_home.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -7,17 +9,21 @@ part 'formulario_event.dart';
 part 'formulario_state.dart';
 
 class FormularioBloc extends Bloc<FormularioEvent, FormularioState> {
+  final ServiceHome service;
 
-  final Dio dio;
-
-  FormularioBloc() : super(FormularioInitial()) {
-    on<Boton>((event, emit) async {
+  FormularioBloc(this.service) : super(Inicio()) {
+    on<EnviarFormulario>((event, emit) async {
       emit (Carga());
+
       try {
-        final Response = await dio.post("https://jsonblob.com/1420155535625478144#google_vignette");
-        info:{
-          "nombre"
-        }
+        final info = await service.infoFormulario(
+          nombre: event.nombre,
+          correo: event.correo,
+          contrasena: event.contrasena,
+        );
+      emit(Home(info));
+      }catch (e){
+        emit(Error());
       }
     });
   }

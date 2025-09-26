@@ -7,4 +7,17 @@ sealed class FormularioEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
-final class Boton extends FormularioEvent{}
+final class EnviarFormulario extends FormularioEvent{
+   final String nombre;
+  final String correo;
+  final String contrasena;
+
+  EnviarFormulario({
+    required this.nombre,
+    required this.correo,
+    required this.contrasena,
+  });
+
+  @override
+  List<Object> get props => [nombre, correo, contrasena];
+}
