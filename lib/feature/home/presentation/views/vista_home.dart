@@ -1,4 +1,7 @@
+import 'package:app/feature/home/presentation/cubit/home_cubit.dart';
+import 'package:app/feature/home/presentation/views/vista_carga.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Vista_home extends StatelessWidget{
   const Vista_home({super.key});
@@ -27,6 +30,38 @@ class Vista_home extends StatelessWidget{
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 194, 204, 252),
                 borderRadius: BorderRadius.circular(20),
+              ),
+              child: BlocConsumer<HomeCubit, HomeState>(
+                listener: (context, state) {
+                  if (state is HomeError) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Error al cargar la información')),
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  if (state is HomeCarga) {
+                    return  Vista_carga();
+                  } else if (state is HomeCargado) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "✅ Usuario registrado correctamente",
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          Text("Nombre: ${state.info.nombre}"),
+                          Text("Correo: ${state.info.correo}"),
+                          Text("Contraseña: ${state.info.contrasena}"), 
+                        ],
+                      );
+                    }
+                  return const SizedBox();
+                }
               ),
             )
           ],

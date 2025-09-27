@@ -25,5 +25,16 @@ class ServiceHome {
         throw Exception("Error: ${response.statusCode}");
       }
     }
-  }
+  
 
+//PETICIÓN GET
+  Future<Info> obtenerInfo() async {
+    final response = await dio.get("http://jsonblob.com/1421593738337247232");
+
+    if (response.statusCode == 200) {
+      return Info.fromJson(response.data);
+    } else {
+      throw Exception("Error: ${response.statusCode}");
+    }
+  }
+}
