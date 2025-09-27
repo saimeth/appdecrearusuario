@@ -1,9 +1,16 @@
+import 'package:app/feature/home/presentation/bloc/formulario_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 class Vista_inicial extends StatelessWidget {
-  const Vista_inicial({
+   Vista_inicial({
     super.key,
   });
+
+  final nombreController = TextEditingController();
+  final correoController = TextEditingController();
+  final contrasenaController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +61,7 @@ class Vista_inicial extends StatelessWidget {
     
     
                 TextField(
+                  controller: nombreController,
                   decoration: InputDecoration(
                     labelText: 'Nombre',
                     border: OutlineInputBorder(
@@ -65,6 +73,7 @@ class Vista_inicial extends StatelessWidget {
     
     
                 TextField(
+                  controller: correoController,
                   decoration: InputDecoration(
                     labelText: 'Correo',
                     border: OutlineInputBorder(
@@ -76,6 +85,7 @@ class Vista_inicial extends StatelessWidget {
     
     
                 TextField(
+                  controller: contrasenaController,
                   decoration: InputDecoration(
                     labelText: 'Contraseña',
                     border: OutlineInputBorder(
@@ -87,7 +97,15 @@ class Vista_inicial extends StatelessWidget {
     
     
                 ElevatedButton(
-                  onPressed: () {}, 
+                  onPressed: () {
+                    context.read<FormularioBloc>().add(
+                      EnviarFormulario(
+                        nombre: nombreController.text,
+                        correo: correoController.text,
+                        contrasena: contrasenaController.text,
+                      ),
+                    );
+                  }, 
                   child: const Text("Registrarse"),
                   style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 132, 155, 254)),
