@@ -20,11 +20,19 @@ class ServiceHome {
       );
     
       if (response.statusCode == 201) {
-        return Info.fromJson(response.data);
+        //como JsonBlob no devuelve información entonces guardamos la location
+        final location = response.headers.value("location");
+        if (location == null) {
+          throw Exception("No se recibió la ubicación del blob");
+        }
+        //Para Traer la inforación que envió el usuario
+        final getResponse = await dio.get(location);
+        return Info.fromJson(getResponse.data);
       } else {
         throw Exception("Error: ${response.statusCode}");
       }
     }
+    
   
 
 //PETICIÓN GET

@@ -11,13 +11,9 @@ class HomeCubit extends Cubit<HomeState> {
   final ServiceHome service;
   HomeCubit(this.service) : super(HomeInitial());
 
-  Future<void> traerInformacion() async{
+  void cargarInfo(Info info){
     emit(HomeCarga());
-    try{
-      final info = await service.obtenerInfo();
-      emit(HomeCargado(info));
-    } catch (e){
-      emit(HomeError());
-    }
+    emit(HomeCargado(info));
+    
   }
 }

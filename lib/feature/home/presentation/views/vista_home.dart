@@ -44,19 +44,21 @@ class Vista_home extends StatelessWidget{
                     return  Vista_carga();
                   } else if (state is HomeCargado) {
                       return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "✅ Usuario registrado correctamente",
+                            "Usuario registrado correctamente",
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 15),
-                          Text("Nombre: ${state.info.nombre}"),
-                          Text("Correo: ${state.info.correo}"),
-                          Text("Contraseña: ${state.info.contrasena}"), 
+                          Text("Nombre: ${state.info.nombre}", textAlign: TextAlign.center,),
+                          Text("Correo: ${state.info.correo}", textAlign: TextAlign.center,),
+                          Text("Contraseña: ${state.info.contrasena}", textAlign: TextAlign.center,), 
                         ],
                       );
                     }
