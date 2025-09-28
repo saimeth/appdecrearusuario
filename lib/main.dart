@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
             } else if (state is Carga) {
               return const Vista_carga();
             } else if (state is Home) {
+              context.read<HomeCubit>().cargarInfo(state.info);
               return const Vista_home();
             } else if (state is Error) {
               return const Vista_error();
